@@ -71,6 +71,7 @@ void draw_parallax_background() {
 }
 
 void draw_game_overlay() {
+    DrawText(TextFormat("Coins: %d", Player::getInstancePlayer().get_total_player_score()), 900, 20, 25, GOLD);
     const float ICON_SIZE = 48.0f * screen_scale;
 
     float slight_vertical_offset = 8.0f;
@@ -81,11 +82,6 @@ void draw_game_overlay() {
         const float SPACE_BETWEEN_HEARTS = 4.0f * screen_scale;
         draw_image(heart_image, {ICON_SIZE * i + SPACE_BETWEEN_HEARTS, slight_vertical_offset}, ICON_SIZE);
     }
-
-    // Timer
-    Vector2 timer_dimensions = MeasureTextEx(menu_font, std::to_string(timer / 60).c_str(), ICON_SIZE, 2.0f);
-    Vector2 timer_position = {(GetRenderWidth() - timer_dimensions.x) * 0.5f, slight_vertical_offset};
-    DrawTextEx(menu_font, std::to_string(timer / 60).c_str(), timer_position, ICON_SIZE, 2.0f, WHITE);
 
     // Score
     Vector2 score_dimensions = MeasureTextEx(menu_font, std::to_string(Player::getInstancePlayer().get_total_player_score()).c_str(), ICON_SIZE, 2.0f);
@@ -175,6 +171,13 @@ void draw_victory_menu() {
 
     draw_text(victory_title);
     draw_text(victory_subtitle);
+
+    DrawText(
+        TextFormat("Total Coins: %d", Player::getInstancePlayer().get_total_player_score()),
+        400, 120,
+        30,
+        GOLD
+    );
 }
 
 #endif //GRAPHICS_H

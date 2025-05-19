@@ -100,31 +100,18 @@ void Player::update_player() {
     }
 
     if (LevelManage::getInstanceLevel().is_colliding(player_pos, EXIT)) {
-        // Reward player for being swift
-        if (timer > 0) {
-            // For every 9 seconds remaining, award the player 1 coin
-            timer -= 25;
-            time_to_coin_counter += 5;
+        LevelManage::getInstanceLevel().load_level(1);
+        PlaySound(exit_sound);
+    }
 
-            if (time_to_coin_counter / 60 > 1) {
-                increment_player_score();
-                time_to_coin_counter = 0;
-            }
-        }
-        else {
-            // Allow the player to exit after the level timer goes to zero
-            LevelManage::getInstanceLevel().load_level(1);
-            PlaySound(exit_sound);
-        }
-    }
-    else {
-        // Decrement the level timer if not at an exit
-        if (timer >= 0) timer--;
-    }
 
     // Kill the player if they touch a spike or fall below the level
     if (LevelManage::getInstanceLevel().is_colliding(player_pos, SPIKE) || Player::getInstancePlayer().get_player_posY() > LevelManage::getInstanceLevel().get_current_level().get_rows()) {
         Player::getInstancePlayer().kill_player();
+    }
+    if (LevelManage::getInstanceLevel().is_colliding(player_pos, COIN)) {
+        LevelManage::getInstanceLevel().get_collider(player_pos, COIN) = AIR;
+        Player::getInstancePlayer().increment_player_score();
     }
 
     // Upon colliding with an enemy...

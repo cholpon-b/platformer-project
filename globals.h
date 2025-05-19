@@ -98,10 +98,7 @@ inline const int LEVEL_COUNT = 3;
 //inline Level current_level;
 //inline char *current_level_data;
 
-/* Timer-mechanic related */
-inline const int MAX_LEVEL_TIME = 50 * 60;
-inline int timer = MAX_LEVEL_TIME;
-inline int time_to_coin_counter = 0;
+
 
 /* Physics constants */
 

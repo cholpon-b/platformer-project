@@ -87,8 +87,7 @@ void LevelManage::load_level(int offset) {
     // Calculate positioning and sizes
     derive_graphics_metrics_from_loaded_level();
 
-    // Reset the timer
-    timer = MAX_LEVEL_TIME;
+
 }
 
 void LevelManage::unload_level() {
